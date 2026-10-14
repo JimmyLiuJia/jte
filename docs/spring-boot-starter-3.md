@@ -101,3 +101,6 @@ To use [precompiled Templates](pre-compiling.md) in production, for use with a J
 gg.jte.usePrecompiledTemplates=true
 ````
 
+When packaging an executable Spring Boot JAR with Gradle, also configure the `bootJar` task as described in [the precompiling guide](pre-compiling.md#spring-boot-executable-jar) so the generated template classes are included in the application.
+
+

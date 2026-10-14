@@ -95,6 +95,8 @@ To use [precompiled Templates](pre-compiling.md) in production, for use with a J
 gg.jte.usePrecompiledTemplates=true
 ````
 
+When packaging an executable Spring Boot JAR with Gradle, also configure the `bootJar` task as described in [the precompiling guide](pre-compiling.md#spring-boot-executable-jar) so the generated template classes are included in the application.
+
 The `jte-spring-boot-starter-4` package includes auto-configuration for both a `org.springframework.web.servlet.ViewResolver` and the jte `TemplateEngine`.
 If you only need the `TemplateEngine`, use `jte-spring-boot-starter-4-core` instead, which provides the same `TemplateEngine` auto-configuration without registering a `ViewResolver`.
 
@@ -113,3 +115,4 @@ If you only need the `TemplateEngine`, use `jte-spring-boot-starter-4-core` inst
     ```groovy linenums="1"
     implementation "gg.jte:jte-spring-boot-starter-4-core:{{ latest-git-tag }}"
     ```
+

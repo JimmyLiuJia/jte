@@ -144,6 +144,50 @@ In case you would like to build a self-contained JAR, you can add this to your `
     }
     ```
 
+### Spring Boot executable JAR
+
+When using the Spring Boot Gradle plugin, add the precompiled templates to `bootJar` instead of configuring `jar`. This places the templates under `BOOT-INF/classes`, where the starter can load them. Include the generated resource directory as well if you use binary templates:
+
+=== "Groovy"
+
+    ```groovy linenums="1"
+    bootJar {
+        dependsOn precompileJte
+        bootInf {
+            into("classes") {
+                from(fileTree("jte-classes") {
+                    include "**/*.class"
+                    include "**/*.bin"
+                })
+                from(layout.buildDirectory.dir("generated-resources/jte")) {
+                    include "**/*.bin"
+                }
+            }
+        }
+    }
+    ```
+
+=== "Kotlin"
+
+    ```kotlin linenums="1"
+    import org.springframework.boot.gradle.tasks.bundling.BootJar
+
+    tasks.named<BootJar>("bootJar") {
+        dependsOn(tasks.precompileJte)
+        bootInf {
+            into("classes") {
+                from(fileTree("jte-classes") {
+                    include("**/*.class")
+                    include("**/*.bin")
+                })
+                from(layout.buildDirectory.dir("generated-resources/jte")) {
+                    include("**/*.bin")
+                }
+            }
+        }
+    }
+    ```
+
 And init the template engine like this for production builds:
 
 ```java linenums="1"
@@ -302,3 +346,4 @@ Use [binary encoding] for maximum performance! To activate it with precompiled t
 
 [jte-gradle-plugin]: https://plugins.gradle.org/plugin/gg.jte.gradle
 [binary encoding]: binary-rendering.md
+
